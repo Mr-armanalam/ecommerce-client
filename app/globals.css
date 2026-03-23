@@ -1,103 +1,167 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
+@plugin 'tailwindcss-animate';
 
-body {
-  @apply bg-[#eee];
-}
+@custom-variant dark (&:is(.dark *));
 
-.nav-center {
-  @apply mx-auto px-10 max-sm:px-5;
-}
-.grid-column{
-  @apply flex items-center;
-}
-h1{
-  @apply text-[3rem];
-}
-.description{
-  @apply text-[0.8rem] text-primary-300 ;
-}
+@theme {
+  --color-primary-100: #eeeeee;
+  --color-primary-200: #cccccc;
+  --color-primary-300: #aaa;
+  --color-primary-800: #222;
+  --color-primary-850: #333;
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
 
-.btn-primary1{
-  @apply cursor-pointer inline-flex items-center text-sm font-semibold   ;
-}
+  --color-primaryMain: #0d3d29;
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
 
-.btn_white_noOutline{
-  @apply bg-white text-black rounded;
-}
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
 
-.btn_white_Outline{
-  @apply bg-transparent text-white border border-white rounded;
-}
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
 
-.btn_primary_noOutline{
-  @apply bg-primaryMain rounded text-white border border-primaryMain;
-}
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
 
-.btn_primary_Outline{
-  @apply bg-transparent text-primaryMain border border-primaryMain py-0.5 px-4;
-}
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
 
-.btn_large{
-  @apply text-[1.2rem] py-3 px-5 ;
-}
-.btn_block{
-  @apply block w-full;
-}
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
 
-h2{
-  @apply text-[2rem] mt-8 mb-5 font-medium text-primary-850;
-}
-.center{
-  @apply flex items-center justify-center;
-}
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
 
-table{
-  @apply w-full;
-}
-th{
-  @apply text-left uppercase text-gray-500 text-[0.7rem];
-}
-td{
-  @apply py-2 border-t border-gray-100;
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-.input-b{
-  @apply w-full text-sm outline-none p-1 border-b mb-1.5 rounded-md ;
-}
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
 
-.grid-product{
-  @apply grid lg:grid-cols-5 max-sm:grid-cols-2 md:grid-cols-3 gap-5;
-}
-input{
-  @apply outline-none border-b rounded-lg py-1 px-2 text-gray-600 ;
-}
-.white_box {
-  @apply bg-white h-fit rounded-md relative p-8 pb-12;
-}
-.scroll_bar{
-  @apply [&::-webkit-scrollbar]:w-2
-  /* [&::-webkit-scrollbar-track]:rounded-md */
-  [&::-webkit-scrollbar-track]:bg-gray-100
-  [&::-webkit-scrollbar-thumb]:rounded-full
-  [&::-webkit-scrollbar-thumb]:bg-gray-300
-  dark:[&::-webkit-scrollbar-track]:bg-neutral-800
-  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500;
-}
-body {
-  @apply scroll_bar;
-  /* @apply overflow-hidden; */
-}
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-      display: none;
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
-  .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
 }
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer utilities {
+  body {
+    @apply bg-[#eee];
+  }
+
+  .nav-center {
+    @apply mx-auto px-10 max-sm:px-5;
+  }
+  .grid-column {
+    @apply flex items-center;
+  }
+  h1 {
+    @apply text-[3rem];
+  }
+  .description {
+    @apply text-[0.8rem] text-primary-300;
+  }
+
+  .btn-primary1 {
+    @apply cursor-pointer inline-flex items-center text-sm font-semibold;
+  }
+
+  .btn_white_noOutline {
+    @apply bg-white text-black rounded;
+  }
+
+  .btn_white_Outline {
+    @apply bg-transparent text-white border border-white rounded;
+  }
+
+  .btn_primary_noOutline {
+    @apply bg-primaryMain rounded text-white border border-primaryMain;
+  }
+
+  .btn_primary_Outline {
+    @apply bg-transparent text-primaryMain border border-primaryMain py-0.5 px-4;
+  }
+
+  .btn_large {
+    @apply text-[1.2rem] py-3 px-5;
+  }
+  .btn_block {
+    @apply block w-full;
+  }
+
+  h2 {
+    @apply text-[2rem] mt-8 mb-5 font-medium text-primary-850;
+  }
+  .center {
+    @apply flex items-center justify-center;
+  }
+
+  table {
+    @apply w-full;
+  }
+  th {
+    @apply text-left uppercase text-gray-500 text-[0.7rem];
+  }
+  td {
+    @apply py-2 border-t border-gray-100;
+  }
+
+  .input-b {
+    @apply w-full text-sm outline-hidden p-1 border-b mb-1.5 rounded-md;
+  }
+
+  .grid-product {
+    @apply grid lg:grid-cols-5 max-sm:grid-cols-2 md:grid-cols-3 gap-5;
+  }
+  input {
+    @apply outline-hidden border-b rounded-lg py-1 px-2 text-gray-600;
+  }
+  .white_box {
+    @apply bg-white h-fit rounded-md relative p-8 pb-12;
+  }
+
+ 
 }
 
 
