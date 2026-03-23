@@ -19,7 +19,7 @@ const CollapsibleRating = () => {
       <Collapsible
         open={isOpen}
         onOpenChange={setIsOpen}
-        className="min-w-[33rem] space-y-2 rounded-lg bg-white px-8 py-1"
+        className="min-w-132 space-y-2 rounded-lg bg-white px-8 py-1"
       >
         <div className="flex items-center justify-between space-x-4 px-4">
           <h3 className={`${lora.className} font-bold text-gray-500`}>

@@ -53,7 +53,7 @@ const ProductBox = ({ _id, title, price, images }: props) => {
           <img
             src={images[0]}
             alt="new product"
-            className="max-h-[100px] max-w-[100%]"
+            className="max-h-[100px] max-w-full"
           />
         </Link>
       </div>

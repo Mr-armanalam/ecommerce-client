@@ -50,7 +50,7 @@ const Searchbar = ({ isOpen, setIsOpen }: props) => {
         className={`mt-4 flex h-10 ${isOpen ? "rounded-t-3xl border-b-gray-400" : "rounded-full"} border-2 border-gray-500 bg-primary-100`}
       >
         <input
-          className="w-[45rem] px-4 font-semibold"
+          className="w-180 px-4 font-semibold"
           style={{ border: "none", background: "none" }}
           placeholder="Search your products"
           type="text"

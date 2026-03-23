@@ -40,7 +40,7 @@ const Featured = ({ product }: { product: props }) => {
                 src={product?.images[0]}
                 alt="home product"
                 className="sm:ml-auto"
-                // className="w-[85%] max-md:w-[100%] sm:ml-auto"
+                // className="w-[85%] max-md:w-full sm:ml-auto"
               />
             </div>
           </div>

@@ -8,7 +8,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
     <div className="flex h-fit flex-col">
       <div className="center max-h-[220px] w-full">
         <img
-          className="max-h-[220px] max-w-[100%] object-contain"
+          className="max-h-[220px] max-w-full object-contain"
           src={activeImage}
           alt="details-product"
         />

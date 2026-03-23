@@ -12,7 +12,7 @@ export default function GlobalError ({
     <html>
       <body>
         <section className="center h-screen bg-primary-100">
-          <div className="center h-[15rem] w-[40rem] flex-col rounded-lg bg-white">
+          <div className="center h-60 w-160 flex-col rounded-lg bg-white">
             <h1 className="text-3xl font-bold">Something went wrong!</h1>
             <p className="text-xl font-semibold text-primary-300">
               {error.message}

@@ -14,7 +14,7 @@ export default function NotFound () {
 
   return (
     <section className="center h-screen bg-primary-100">
-      <div className="center h-[15rem] w-[40rem] flex-col rounded-lg bg-white">
+      <div className="center h-60 w-160 flex-col rounded-lg bg-white">
         <h1 className="font-bold">Not Found</h1>
         <p className="text-xl font-semibold text-primary-300">
           Could not find requested resource on

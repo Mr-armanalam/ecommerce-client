@@ -72,7 +72,7 @@ export default function Header() {
         <div className="flex h-20 items-center justify-between">
           <Link
             href="/"
-            className={`${lora.className} bg-gradient-to-r from-gray-400 to-gray-200 bg-clip-text text-2xl font-black tracking-tighter text-transparent transition-transform hover:scale-105`}
+            className={`${lora.className} bg-linear-to-r from-gray-400 to-gray-200 bg-clip-text text-2xl font-black tracking-tighter text-transparent transition-transform hover:scale-105`}
           >
             QuirkCart
           </Link>
@@ -128,7 +128,7 @@ export default function Header() {
       <div
         ref={mobileMenuRef}
         style={{ transform: "translateX(100%)" }} // Initial state
-        className=" bg-black h-screen fixed top-0 bottom-0 inset-0 z-[60] flex flex-col p-10 md:hidden"
+        className=" bg-black h-screen fixed top-0 bottom-0 inset-0 z-60 flex flex-col p-10 md:hidden"
       >
         <div className="flex justify-end">
           <button
@@ -228,12 +228,12 @@ export default function Header() {
 //   ];
 
 //   return (
-//     // `${lora.className} text-2xl font-black tracking-tighter bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent hover:scale-105 transition-transform`
+//     // `${lora.className} text-2xl font-black tracking-tighter bg-linear-to-r from-white to-gray-500 bg-clip-text text-transparent hover:scale-105 transition-transform`
 //     <header className="bg-primary-900/90 sticky top-0 z-50 w-full border-b border-white/5 bg-primary-800 backdrop-blur-xl">
 //       <div className="mx-auto max-w-7xl px-6">
 //         <div className="flex h-20 items-center justify-between">
 //           <Link
-//             className={`flex bg-gradient-to-r from-gray-400 to-gray-200 bg-clip-text max-sm:relative max-sm:z-20
+//             className={`flex bg-linear-to-r from-gray-400 to-gray-200 bg-clip-text max-sm:relative max-sm:z-20
 //              ${lora.className} text-xl font-bold text-transparent `}
 //             href={"/"}
 //           >
