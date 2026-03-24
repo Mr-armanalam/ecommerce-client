@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
 import React, { ReactNode } from "react";
 import { CartContextProvider } from "@/context/CartContext";
-import Header from "@/components/Header";
+import Header from "@/components/Navbar";
 import { SessionProvider } from "next-auth/react";
 import { WishlistProvider } from "@/context/WishlistContext";
 
@@ -21,7 +21,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export default function RootLayout ({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${roboto.variable} ${poppins.variable} antialiased`}>

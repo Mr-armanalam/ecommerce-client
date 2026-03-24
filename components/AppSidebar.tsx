@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/sidebar";
 
 import React, { useEffect, useState } from "react";
-import { lora } from "./Header";
+import { lora } from "./Navbar";
 import {
   Collapsible,
   CollapsibleContent,
@@ -36,12 +36,12 @@ interface prop {
   properties: Array<string>;
   children: Array<prop>;
 }
-export function AppSidebar () {
+export function AppSidebar() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [openStates, setOpenStates] = useState<Record<string, boolean>>({});
   const [isChildChecked, setIsChildChecked] = useState<Record<string, boolean>>(
-    {}
+    {},
   );
   const [items, setItems] = useState<Array<prop>>([]);
   const { state } = useSidebar();
@@ -89,7 +89,7 @@ export function AppSidebar () {
     <Sidebar collapsible="icon" className={`${lora.className}`}>
       <SidebarHeader className="bg-primary-0 pl-3 pt-4">
         <h3
-          className={` flex items-center justify-center rounded-lg bg-primary-850 py-2 pr-6 text-2xl font-bold text-gray-300`}
+          className={` flex items-center justify-center rounded-lg bg-[#333] py-2 pr-6 text-2xl font-bold text-gray-300`}
         >
           <HomeIcon className="mr-1 size-6 text-gray-300" />
           {state === "expanded" && "QuirkCart"}
@@ -103,9 +103,9 @@ export function AppSidebar () {
       <SidebarContent className="font-semibold text-gray-400">
         <SidebarGroup>
           <SidebarGroupContent>
-            {state === "expanded"
+            {state === "expanded" ? (
               // eslint-disable-next-line multiline-ternary
-              ? (<SidebarMenu>
+              <SidebarMenu>
                 {items.map((item) => (
                   <Collapsible
                     defaultOpen={true}
@@ -146,11 +146,11 @@ export function AppSidebar () {
                   </Collapsible>
                 ))}
               </SidebarMenu>
-                ) : (
+            ) : (
               <p className="text-wrap px-2 text-center leading-10 ">
                 C A T E G O R I E S
               </p>
-                )}
+            )}
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

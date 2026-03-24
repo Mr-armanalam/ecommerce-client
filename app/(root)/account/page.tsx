@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import AddressShower from "@/components/client/AddressShower";
-import { lora } from "@/components/Header";
+import { lora } from "@/components/Navbar";
 import { AddressSaver } from "@/components/server/addressSaver";
 import { allOrderItems } from "@/components/server/products.action";
 import { signOut, useSession } from "next-auth/react";
@@ -218,7 +218,7 @@ const Account = () => {
           />
           <button
             type="submit"
-            className="btn-primary1 btn_block mt-6 rounded-md bg-primary-800 py-2 text-white"
+            className="btn-primary1 btn_block mt-6 rounded-md bg-[#222] py-2 text-white"
           >
             Save
           </button>

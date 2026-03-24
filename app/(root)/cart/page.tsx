@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import AddressShower from "@/components/client/AddressShower";
-import { lora } from "@/components/Header";
+import { lora } from "@/components/Navbar";
 import { CartContext } from "@/context/CartContext";
 import { getCartProduct } from "@/components/server/products.action";
 import { useSession } from "next-auth/react";
@@ -20,7 +20,7 @@ interface Product {
 
 const Cart = () => {
   const { cartProducts, addProduct, removeProduct, clearCart } = useContext(
-    CartContext
+    CartContext,
   ) ?? { cartProducts: [] };
   const [products, setProducts] = useState<Product[]>([]);
   const [name, setName] = useState("");
@@ -244,7 +244,7 @@ const Cart = () => {
             {/* <input type="hidden" name="products" value={cartProducts.join(',')} /> */}
             <button
               type="submit"
-              className="btn-primary1 btn_block mt-6 rounded-md bg-primary-800 py-2 text-white"
+              className="btn-primary1 btn_block mt-6 rounded-md bg-[#222] py-2 text-white"
             >
               Continue to payment
             </button>

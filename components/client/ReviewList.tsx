@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { lora } from "../Header";
+import { lora } from "../Navbar";
 import { useSession } from "next-auth/react";
 import ReviewStart from "./ReviewStart";
 import { getAllReviews } from "@/components/server/postReviews.action";
@@ -30,7 +30,7 @@ const ReviewList = ({ productId }: { productId: string }) => {
         const fetchReviews = await getAllReviews(productId);
         if (!fetchReviews) return;
         const BuyerReviews = fetchReviews?.reviews.filter(
-          (review: FetchReview) => review.userId?._id !== session?.user?.id
+          (review: FetchReview) => review.userId?._id !== session?.user?.id,
         );
         setAllReviews(BuyerReviews);
       })();

@@ -8,7 +8,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { lora } from "../Header";
+import { lora } from "../Navbar";
 import { StarIcon } from "../icons";
 
 const CollapsibleRating = () => {

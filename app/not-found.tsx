@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-export default function NotFound () {
+export default function NotFound() {
   const router = useRouter();
   const [href, setHref] = useState("");
 
@@ -13,10 +13,10 @@ export default function NotFound () {
   }, []);
 
   return (
-    <section className="center h-screen bg-primary-100">
+    <section className="center h-screen bg-[#eee]">
       <div className="center h-60 w-160 flex-col rounded-lg bg-white">
         <h1 className="font-bold">Not Found</h1>
-        <p className="text-xl font-semibold text-primary-300">
+        <p className="text-xl font-semibold text-[#aaa]">
           Could not find requested resource on
         </p>
         <p className="description line-clamp-1 max-w-full">{href}</p>

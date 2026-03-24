@@ -1,17 +1,18 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @plugin 'tailwindcss-animate';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary-100: #eeeeee;
-  --color-primary-200: #cccccc;
-  --color-primary-300: #aaa;
-  --color-primary-800: #222;
-  --color-primary-850: #333;
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-foregroundNew: #282623;
+  --color-backgroundNew: #dad9d8;
+  --color-foregroundNew-300: #b9b8b6;
+  --color-foregroundNew-500: #898681;
+  --color-foregroundNew-700: #58534e;
 
   --color-primaryMain: #0d3d29;
   --color-background: hsl(var(--background));
@@ -100,7 +101,7 @@
     @apply text-[3rem];
   }
   .description {
-    @apply text-[0.8rem] text-primary-300;
+    @apply text-[0.8rem] text-[#aaa];
   }
 
   .btn-primary1 {
@@ -131,7 +132,7 @@
   }
 
   h2 {
-    @apply text-[2rem] mt-8 mb-5 font-medium text-primary-850;
+    @apply text-[2rem] mt-8 mb-5 font-medium text-[#333];
   }
   .center {
     @apply flex items-center justify-center;
@@ -160,15 +161,11 @@
   .white_box {
     @apply bg-white h-fit rounded-md relative p-8 pb-12;
   }
-
- 
 }
-
 
 /* a{
   @apply sm:block;
 } */
-
 
 @layer base {
   :root {
@@ -242,12 +239,11 @@
   }
 }
 
-
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 }

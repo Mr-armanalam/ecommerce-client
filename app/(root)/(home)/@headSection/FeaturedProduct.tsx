@@ -24,11 +24,11 @@ export const FeaturedProduct = ({
   featuredProduct: props[];
 }) => {
   const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
+    Autoplay({ delay: 4000, stopOnInteraction: true }),
   );
 
   return (
-    <div className="group relative flex items-center justify-center bg-primary-800">
+    <div className="group relative z-10 mt-20 flex items-center justify-center bg-[#222]">
       <Carousel
         plugins={[plugin.current]}
         className="w-full"
@@ -44,7 +44,7 @@ export const FeaturedProduct = ({
         </CarouselContent>
         <CarouselPrevious
           variant={"outline"}
-          size={'icon'}
+          size={"icon"}
           className="absolute -left-8 top-[50%] z-50 bg-transparent fill-gray-500 text-white opacity-0 transition-opacity group-hover:left-4 group-hover:opacity-100"
         />
         <CarouselNext

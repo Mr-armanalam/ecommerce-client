@@ -1,13 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { lora } from "../Header";
+import { lora } from "../Navbar";
 import { StarIcon } from "../icons";
 import { useSession } from "next-auth/react";
 // import { getUserReview, postReviews } from "../server/postReviews.action";
 
 import ReviewList, { FetchReview } from "./ReviewList";
 import ReviewStart from "./ReviewStart";
-import { getUserReview, postReviews } from "@/components/server/postReviews.action";
+import {
+  getUserReview,
+  postReviews,
+} from "@/components/server/postReviews.action";
 // import CollapsibleRating from "./CollapsibleRating";
 
 export interface Reviews {
@@ -66,8 +69,8 @@ const ReviewShower = ({ productId }: { productId: string }) => {
       <h2 className={`${lora.className} mb-0.5 font-semibold`}>Reviews</h2>
       <div className="grid grid-cols-5 gap-8">
         <div className="white_box col-span-2">
-          {reviews === null
-            ? <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          {reviews === null ? (
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <h3 className={`${lora.className} mb-1 font-bold text-gray-500`}>
                 Write a Review
               </h3>
@@ -106,14 +109,14 @@ const ReviewShower = ({ productId }: { productId: string }) => {
                 Add Your Review
               </button>
             </form>
-            : (
+          ) : (
             <div className="text-gray-500">
               <h3 className={`${lora.className} mb-5 font-bold text-gray-500`}>
                 Your Review
               </h3>
               {reviews !== undefined && <ReviewStart {...reviews} />}
             </div>
-              )}
+          )}
         </div>
         <div className="white_box col-span-3 h-fit">
           {productId && <ReviewList productId={productId} />}
