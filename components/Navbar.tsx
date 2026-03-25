@@ -75,7 +75,7 @@ export default function Navbar() {
   return (
     <nav className="sticky text-foregroundNew top-0 z-100 w-full border-b border-white/5 bg-primar-800 backdrop-blur-xl">
       <div className="mx-auto  px-6">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-22 items-center justify-between">
           <Link
             href="/"
             className={`${lora.className} bg-linear-to-r from-foregroundNew mix-blend-exclusion to-foregroundNew-500 bg-clip-text text-4xl font-black tracking-tighter text-transparent transition-transform hover:scale-105`}

@@ -4,12 +4,14 @@ import { SearchIcon } from "../icons";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import SearchResult from "./SearchResult";
+import ProductSearchResult from "./product-search-result";
 
 export const ProductSearch = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
+  const [isSearchActive, setIsSearchActive] = useState(false);
 
   const [search, setSearch] = useState<string>("");
 
@@ -36,25 +38,34 @@ export const ProductSearch = () => {
 
     return () => clearTimeout(delayDebounceFn);
   }, [search, pathname, router, searchParams, query]);
+
   return (
-    <div className="relative h-16 shadow px-10 rounded-full bg-white min-w-xl flex flex-col justify-center items-center">
-      <div className={`rounded-full flex h-14 w-full items-center px-4 bg-gray-50`}>
-        <input
-          className="w-full text-foregroundNew outline-0 border-0 px-4 "
-          placeholder="Search your products"
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          type="button"
-          className={`h-[36px] px-2 `}
+    <form
+      tabIndex={0}
+      onBlur={() => setIsSearchActive(false)}
+      onFocus={() => setIsSearchActive(true)}
+      className="relative mt-2 h-18 flex items-center borde bordr-red-300  min-w-2xl "
+    >
+      <div
+        className={`flex w-full shadow ${isSearchActive ? "rounded-lg" : "rounded-[100px]"} top-0 bg-white max-h-75 absolute px-10 flex-col justify-center items-center`}
+      >
+        <div
+          className={`rounded-full flex h-14 my-2 w-full items-center px-4 bg-gray-50`}
         >
-          <SearchIcon />
-        </button>
+          <input
+            className="w-full text-foregroundNew outline-0 border-0 px-4 "
+            placeholder="Search your products"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button type="submit" className={`h-9 px-2 `}>
+            <SearchIcon />
+          </button>
+        </div>
+        {isSearchActive && <ProductSearchResult />}
       </div>
-      {/* {isOpen && <SearchResult />} */}
-    </div>
+    </form>
   );
 };
 
