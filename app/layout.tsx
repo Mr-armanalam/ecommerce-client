@@ -1,7 +1,7 @@
 "use client";
 import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 import { CartContextProvider } from "@/context/CartContext";
 import Header from "@/components/Navbar";
 import { SessionProvider } from "next-auth/react";
@@ -25,12 +25,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${roboto.variable} ${poppins.variable} antialiased`}>
-        <CartContextProvider>
-          <WishlistProvider>
-            <Header />
-            <SessionProvider>{children}</SessionProvider>
-          </WishlistProvider>
-        </CartContextProvider>
+        <Suspense fallback={null}>
+          <CartContextProvider>
+            <WishlistProvider>
+              <Header />
+              <SessionProvider>{children}</SessionProvider>
+            </WishlistProvider>
+          </CartContextProvider>
+        </Suspense>
       </body>
     </html>
   );

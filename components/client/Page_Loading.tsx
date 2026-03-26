@@ -1,4 +1,3 @@
-"use client";
 import { lora } from "@/components/Navbar";
 import Image from "next/image";
 import React from "react";

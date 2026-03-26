@@ -15,12 +15,6 @@ const stripe = new Stripe(process.env.STRIPE_SK);
 
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 async function buffer (readable: ReadableStream<Uint8Array>) {
   const reader = readable.getReader();
   const chunks = [];

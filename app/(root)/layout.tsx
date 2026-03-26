@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "QuirkCart",
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 
 const Layout = ({ children }: {children:ReactNode}) => {
   return (
-    <>
+    <Suspense fallback={null}>
     {children}
-    </>
+    </Suspense>
   );
 };
 

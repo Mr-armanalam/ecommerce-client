@@ -8,7 +8,7 @@ import { Iproduct } from "@/model/product";
 import Link from "next/link";
 
 interface props extends Iproduct {
-  _id: string;
+  _id: string | any;
 }
 
 const CategoriesResult = ({
