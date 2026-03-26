@@ -73,7 +73,7 @@ export default function Navbar() {
   // ];
 
   return (
-    <nav className="sticky text-foregroundNew top-0 z-100 w-full border-b border-white/5 bg-primar-800 backdrop-blur-xl">
+    <nav className="sticky text-foregroundNew top-0 z-100 w-full border-b border-white/5 bg-primar-800 backdrop-blu-xl">
       <div className="mx-auto  px-6">
         <div className="flex h-22 items-center justify-between">
           <Link

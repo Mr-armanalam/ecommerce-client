@@ -17,7 +17,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { lora } from "./Navbar";
 import {
   Collapsible,
@@ -39,12 +39,37 @@ interface prop {
 export function AppSidebar() {
   const searchParams = useSearchParams();
   const router = useRouter();
+
   const [openStates, setOpenStates] = useState<Record<string, boolean>>({});
   const [isChildChecked, setIsChildChecked] = useState<Record<string, boolean>>(
-    {},
+    () => {
+      const data = searchParams.get("ct");
+      if (data && data !== "null" && data !== "") {
+        const initialMap: Record<string, boolean> = {};
+        // If ct contains multiple IDs, split them and set them all to true
+        data.split(",").forEach((id) => {
+          if (id !== "null") initialMap[id] = true;
+        });
+        return initialMap;
+      }
+      return {};
+    },
   );
   const [items, setItems] = useState<Array<prop>>([]);
   const { state } = useSidebar();
+
+  // console.log(isChildChecked);
+
+  // const autoCheckedCategory = useCallback(() => {
+  //   const data = searchParams.get("ct");
+
+  //   if (data) {
+  //     setIsChildChecked((prevStates) => ({
+  //       ...prevStates,
+  //       [data]: !prevStates[data],
+  //     }));
+  //   }
+  // }, []);
 
   const toggleChiledChecked = (title: string) => {
     setIsChildChecked((prevStates) => ({
@@ -68,39 +93,35 @@ export function AppSidebar() {
   }, []);
 
   useEffect(() => {
-    const updateCategoryWithDebounceFn = setTimeout(() => {
-      if (isChildChecked) {
-        const newUrl = formUrlQuery({
-          params: searchParams.toString(),
-          key: "ct",
-          value: Object.keys(isChildChecked)
-            .filter((title) => isChildChecked[title])
-            .join(",")
-            .toLowerCase(),
-        });
-        router.push(newUrl, { scroll: false });
-      }
-    }, 300);
+  const updateCategoryWithDebounceFn = setTimeout(() => {
+    // 1. Generate the new list of IDs
+    const activeKeys = Object.keys(isChildChecked)
+      .filter((id) => isChildChecked[id] && id !== "" && id !== "null");
+    
+    const newValue = activeKeys.join(",").toLowerCase();
 
-    return () => clearTimeout(updateCategoryWithDebounceFn);
-  }, [searchParams, router, isChildChecked]);
+    // 2. Check current value in URL to prevent redundant pushes
+    const currentParams = new URLSearchParams(window.location.search);
+    const currentValue = currentParams.get("ct") || "";
+
+    // 3. ONLY push if the value has actually changed
+    if (newValue !== currentValue) {
+      const newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: "ct",
+        value: newValue,
+      });
+      router.push(newUrl, { scroll: false });
+    }
+  }, 300);
+
+  return () => clearTimeout(updateCategoryWithDebounceFn);
+  // Remove searchParams and router from here to stop the loop
+}, [isChildChecked]);
 
   return (
     <Sidebar collapsible="icon" className={`${lora.className}`}>
-      <SidebarHeader className="bg-primary-0 pl-3 pt-4">
-        <h3
-          className={` flex items-center justify-center rounded-lg bg-[#333] py-2 pr-6 text-2xl font-bold text-gray-300`}
-        >
-          <HomeIcon className="mr-1 size-6 text-gray-300" />
-          {state === "expanded" && "QuirkCart"}
-        </h3>
-      </SidebarHeader>
-      <SidebarHeader className="bg-primary-0 pl-3 pt-6">
-        <h3 className={`text-xl font-bold ${lora.className} text-gray-500`}>
-          {state === "expanded" ? "Categories" : <HomeIcon />}
-        </h3>
-      </SidebarHeader>
-      <SidebarContent className="font-semibold text-gray-400">
+      <SidebarContent className="font-semibold mt-24 text-gray-400">
         <SidebarGroup>
           <SidebarGroupContent>
             {state === "expanded" ? (

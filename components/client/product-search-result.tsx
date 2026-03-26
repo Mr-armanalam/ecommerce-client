@@ -1,6 +1,6 @@
 import { CornerDownRightIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { searchProducts } from "../server/getSearchResult.action";
 import { formUrlQuery } from "@/lib/utils";
@@ -13,14 +13,22 @@ interface searchProp {
 const ProductSearchResult = () => {
   const searchParams = useSearchParams();
   const [searchList, setSearchList] = useState<searchProp[]>([]);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const type = searchParams.get("type");
   const searchQuery = searchParams.get("q") ?? "";
+  const router = useRouter();
 
   const handleSearchProducts = useCallback(async () => {
     const fetchedProducts = await searchProducts({ query: searchQuery, type });
     setSearchList(JSON.parse(fetchedProducts));
   }, [searchQuery]);
+
+  const handleSetCategory = (id: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("ct", id);
+
+    // Use a template literal with the leading slash
+    router.push(`/categories?${params.toString()}`, { scroll: false });
+  };
 
   useEffect(() => {
     handleSearchProducts();
@@ -39,7 +47,7 @@ const ProductSearchResult = () => {
               searchList.map((list, i) => (
                 <div
                   key={i}
-                  onClick={() => console.log(i)}
+                  onClick={() => handleSetCategory(list.category)}
                   className="flex text-sm cursor-pointer px-2 line-clamp-1 rounded gap-x-2 items-center"
                 >
                   <CornerDownRightIcon size={15} /> {list.title}
@@ -59,7 +67,7 @@ const ProductSearchResult = () => {
               searchList.map((list, i) => (
                 <div
                   key={i}
-                  onClick={() => console.log(i)}
+                  onClick={() => handleSetCategory(list.category)}
                   className="flex text-sm cursor-pointer px-2 line-clamp-1 rounded gap-x-2 items-center"
                 >
                   <CornerDownRightIcon size={15} /> {list.title}
