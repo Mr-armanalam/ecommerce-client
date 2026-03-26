@@ -28,7 +28,7 @@ export const FeaturedProduct = ({
   );
 
   return (
-    <div className="group h-90 border relative z-10 mt-4 px-10 rounded-md flex items-center justify-center">
+    <div className="group max-sm:h-fit md:h-90 md:border relative z-10 mt-4 px-10 rounded-md flex items-center justify-center">
       <Carousel
         plugins={[plugin.current]}
         className="w-full"

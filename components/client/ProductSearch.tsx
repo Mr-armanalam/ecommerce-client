@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { SearchIcon } from "../icons";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
-import SearchResult from "./SearchResult";
 import ProductSearchResult from "./product-search-result";
 
 export const ProductSearch = () => {
@@ -44,13 +43,13 @@ export const ProductSearch = () => {
       tabIndex={0}
       onBlur={() => setIsSearchActive(false)}
       onFocus={() => setIsSearchActive(true)}
-      className="relative mt-2 h-18 flex items-center borde bordr-red-300  min-w-2xl "
+      className="relative mt-2 max-sm:h-16 md:h-18 flex items-center borde bordr-red-300 max-sm:min-w-62  md:min-w-2xl "
     >
       <div
-        className={`flex w-full shadow ${isSearchActive ? "rounded-lg" : "rounded-[100px]"} top-0 bg-white max-h-75 absolute px-10 flex-col justify-center items-center`}
+        className={`flex w-full shadow ${isSearchActive ? "rounded-lg" : "rounded-[100px]"} top-0 bg-white max-h-75 absolute max-sm:px-5 md:px-10 flex-col justify-center items-center`}
       >
         <div
-          className={`rounded-full flex h-14 my-2 w-full items-center px-4 bg-gray-50`}
+          className={`rounded-full flex max-sm:h-10 md:h-14 my-2 w-full items-center md:px-4 bg-gray-50`}
         >
           <input
             className="w-full text-foregroundNew outline-0 border-0 px-4 "

@@ -13,7 +13,7 @@ interface props {
 
 const Featured = ({ product }: { product: props }) => {
   return (
-    <div className="bg-[#222] h-90 rounded-md py-8 text-white">
+    <div className="bg-[#222] md:h-90 rounded-md py-8 text-white">
       <div className="nav-center h-full">
         <div className="grid h-full items-center grid-cols-5 gap-8 max-sm:grid-cols-1">
           <div className=" flex justify-center gap-y-4 flex-col items-start h-full col-span-3 md:px-8">
