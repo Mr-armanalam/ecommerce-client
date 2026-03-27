@@ -1,10 +1,10 @@
 /* eslint-disable multiline-ternary */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import AddressShower from "@/components/client/AddressShower";
-import { lora } from "@/components/Navbar";
+import AddressShower from "@/module/account/component/AddressShower";
+import { lora } from "@/module/share/navbar/ui/Navbar";
 import { CartContext } from "@/context/CartContext";
-import { getCartProduct } from "@/components/server/products.action";
+import { getCartProduct } from "@/module/products/server/products.action";
 import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState } from "react";
 

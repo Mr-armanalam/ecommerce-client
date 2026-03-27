@@ -1,8 +1,8 @@
-import CartButton from "@/components/client/CartButton";
-import { ProductPropertes } from "@/components/client/ProductComponent";
-import ReviewShower from "@/components/client/ReviewShower";
-import ProductImages from "@/components/ProductImages";
-import { productDatails } from "@/components/server/productDetails.action";
+import CartButton from "@/module/share/components/CartButton";
+import { ProductPropertes } from "@/module/products/section/ProductComponent";
+import ReviewShower from "@/module/products/ui/ReviewShower";
+import ProductImages from "@/module/products/section/ProductImages";
+import { productDatails } from "@/module/products/server/productDetails.action";
 import { StarIcon } from "lucide-react";
 import { Metadata } from "next";
 import React from "react";

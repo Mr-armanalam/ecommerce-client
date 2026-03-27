@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,9 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -34,15 +28,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/chatgpt/route.ts",
-    "components/icons.tsx",
+    "module/account/component/icons.tsx",
     "next-auth.d.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ],
-  "typeRoots": [
-    "./node_modules/@types",
-    "./types"
-  ]
+  "exclude": ["node_modules"],
+  "typeRoots": ["./node_modules/@types", "./types"]
 }

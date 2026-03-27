@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // app/api/auth/route.ts
-import { mongooseConnect } from "@/lib/mongoose";
-import { ClientUser } from "@/model/Clientuser.model";
+import { mongooseConnect } from "@/db/mongoose";
+import { ClientUser } from "@/db/model/Clientuser.model";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -49,7 +49,7 @@ const handler = NextAuth({
     signIn: "/auth", // Custom sign-in page
   },
   callbacks: {
-    async signIn ({ user }) {
+    async signIn({ user }) {
       await mongooseConnect();
       const existingUser = await ClientUser.findOne({ email: user.email });
       if (!existingUser) {
@@ -66,7 +66,7 @@ const handler = NextAuth({
       }
       return true;
     },
-    async jwt ({ token, user }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -75,7 +75,7 @@ const handler = NextAuth({
       }
       return token;
     },
-    async session ({ session, token }) {
+    async session({ session, token }) {
       if (token) {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
@@ -84,7 +84,7 @@ const handler = NextAuth({
       }
       return session;
     },
-    async redirect ({ url, baseUrl }) {
+    async redirect({ url, baseUrl }) {
       if (url.startsWith("/")) return `${baseUrl}${url}`;
       else if (new URL(url).origin === baseUrl) return url;
       return baseUrl;

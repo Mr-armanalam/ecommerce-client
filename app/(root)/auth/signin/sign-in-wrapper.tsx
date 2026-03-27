@@ -1,7 +1,7 @@
 "use client";
 
-import PageLoading from "@/components/client/Page_Loading";
-import SignIn from "@/components/client/SignIn";
+import PageLoading from "@/module/share/components/Page_Loading";
+import SignIn from "@/module/share/login/SignIn";
 import { Suspense } from "react";
 
 export default function SignInWrapper() {

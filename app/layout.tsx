@@ -3,7 +3,7 @@ import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
 import React, { ReactNode, Suspense } from "react";
 import { CartContextProvider } from "@/context/CartContext";
-import Header from "@/components/Navbar";
+import Header from "@/module/share/navbar/ui/Navbar";
 import { SessionProvider } from "next-auth/react";
 import { WishlistProvider } from "@/context/WishlistContext";
 

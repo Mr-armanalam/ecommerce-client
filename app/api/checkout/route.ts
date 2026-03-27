@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable prefer-const */
-import { mongooseConnect } from "@/lib/mongoose";
-import { Order } from "@/model/Order.model";
-import { Product } from "@/model/product";
+import { mongooseConnect } from "@/db/mongoose";
+import { Order } from "@/db/model/Order.model";
+import { Product } from "@/db/model/product";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -13,7 +13,7 @@ if (!process.env.STRIPE_SK) {
 
 const stripe = new Stripe(process.env.STRIPE_SK);
 
-export async function POST (req: Request) {
+export async function POST(req: Request) {
   try {
     mongooseConnect();
     const formData = await req.formData();
@@ -41,7 +41,7 @@ export async function POST (req: Request) {
     let line_items = [];
     for (const productId of uniqueIds) {
       const productInfo = productsInfos.find(
-        (p) => p._id.toString() === productId
+        (p) => p._id.toString() === productId,
       );
 
       const quantity =
