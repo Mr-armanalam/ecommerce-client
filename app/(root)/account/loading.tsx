@@ -1,4 +1,4 @@
-import PageLoading from "@/components/client/Page_Loading";
+import PageLoading from "@/module/share/components/Page_Loading";
 import React from "react";
 
 const loading = () => {

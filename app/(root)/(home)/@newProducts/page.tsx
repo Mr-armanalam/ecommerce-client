@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import ProductBox from "@/components/ProductBox";
-import { getFeaturedProduct } from "@/components/server/products.action";
+import ProductBox from "@/module/share/components/ProductBox";
+import { getFeaturedProduct } from "@/module/products/server/products.action";
 import React from "react";
 
 const page = async () => {

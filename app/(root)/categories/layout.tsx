@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import React, { ReactNode, Suspense } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
+import { AppSidebar } from "@/module/categories/view/AppSidebar";
 
 export const metadata: Metadata = {
   title: "QuirkCart | Categories",

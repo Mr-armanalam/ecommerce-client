@@ -1,9 +1,9 @@
 "use client";
-import { lora } from "@/components/Navbar";
-import { ClearIcon } from "@/components/icons";
-import ProductBox from "@/components/ProductBox";
+import { lora } from "@/module/share/navbar/ui/Navbar";
+import { ClearIcon } from "@/module/account/component/icons";
+import ProductBox from "@/module/share/components/ProductBox";
 import { useWishlist } from "@/context/WishlistContext";
-import { getWishlistProducts } from "@/components/server/products.action";
+import { getWishlistProducts } from "@/module/products/server/products.action";
 import React, { useEffect, useState } from "react";
 
 interface props {

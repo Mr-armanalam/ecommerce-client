@@ -1,10 +1,10 @@
 /* eslint-disable multiline-ternary */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import AddressShower from "@/components/client/AddressShower";
-import { lora } from "@/components/Navbar";
-import { AddressSaver } from "@/components/server/addressSaver";
-import { allOrderItems } from "@/components/server/products.action";
+import AddressShower from "@/module/account/component/AddressShower";
+import { lora } from "@/module/share/navbar/ui/Navbar";
+import { AddressSaver } from "@/module/account/server/addressSaver";
+import { allOrderItems } from "@/module/products/server/products.action";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";

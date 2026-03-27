@@ -1,8 +1,8 @@
-import ComponentLoader from '@/components/client/ComponentLoader'
-import React from 'react'
+import ComponentLoader from "@/module/categories/ui/ComponentLoader";
+import React from "react";
 
 const loading = () => {
-  return <ComponentLoader />
-}
+  return <ComponentLoader />;
+};
 
-export default loading
+export default loading;

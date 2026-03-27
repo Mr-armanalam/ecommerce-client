@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { mongooseConnect } from "@/lib/mongoose";
-import { AdminUser } from "@/model/adminUser.model";
-import { Order } from "@/model/Order.model";
-import { Product } from "@/model/product";
+import { mongooseConnect } from "@/db/mongoose";
+import { AdminUser } from "@/db/model/adminUser.model";
+import { Order } from "@/db/model/Order.model";
+import { Product } from "@/db/model/product";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -15,7 +15,7 @@ const stripe = new Stripe(process.env.STRIPE_SK);
 
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 
-async function buffer (readable: ReadableStream<Uint8Array>) {
+async function buffer(readable: ReadableStream<Uint8Array>) {
   const reader = readable.getReader();
   const chunks = [];
   let result;
@@ -27,7 +27,7 @@ async function buffer (readable: ReadableStream<Uint8Array>) {
   return Buffer.concat(chunks);
 }
 
-export async function POST (req: NextRequest) {
+export async function POST(req: NextRequest) {
   if (!req.body) {
     throw new Error("Missing request body");
   }
@@ -43,7 +43,7 @@ export async function POST (req: NextRequest) {
     console.error(` Webhook signature verification failed.`, err);
     return NextResponse.json(
       { error: `Webhook Error: ${err.message}` },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -73,7 +73,7 @@ export async function POST (req: NextRequest) {
           await AdminUser.findByIdAndUpdate(
             adminId,
             { $inc: { totalRevenue } },
-            { new: true }
+            { new: true },
           );
         } catch (error) {
           console.error(`Error updating Admin ID ${adminId}:`, error);
