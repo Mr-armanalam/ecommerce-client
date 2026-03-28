@@ -1,11 +1,15 @@
+import { Iproduct } from "@/db/model/product";
 import { getRecommendateProducts } from "@/module/home/server/recommendateProducts";
 import ProductBox from "@/module/share/components/ProductBox";
 import { getServerSession } from "next-auth";
 import React from "react";
 
 const page = async () => {
-  const { recommendateProducts: product }: any =
-    await getRecommendateProducts();
+  const res = await getRecommendateProducts();
+
+  if (!res) return;
+
+  const product = res.recommendateProducts as Iproduct[];
 
   return (
     <section className="px-10">
