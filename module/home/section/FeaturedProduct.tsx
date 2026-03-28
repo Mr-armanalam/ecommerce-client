@@ -28,7 +28,7 @@ export const FeaturedProduct = ({
   );
 
   return (
-    <div className="group max-sm:h-fit md:h-90 md:border relative z-10 mt-4 px-10 rounded-md flex items-center justify-center">
+    <section className="group max-sm:h-fit md:h-90 relative z-10 mt-4 px-10 rounded-md flex items-center justify-center">
       <Carousel
         plugins={[plugin.current]}
         className="w-full"
@@ -52,6 +52,6 @@ export const FeaturedProduct = ({
           className="absolute right-4 top-[50%] z-50 bg-transparent fill-gray-800 text-white opacity-0 group-hover:opacity-100"
         />
       </Carousel>
-    </div>
+    </section>
   );
 };

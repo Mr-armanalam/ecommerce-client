@@ -9,14 +9,17 @@ export const metadata:Metadata = {
 const Layout = ({
   headSection,
   newProducts,
+  recommendateProducts
 }: {
   headSection: ReactNode,
   newProducts: ReactNode,
+  recommendateProducts: ReactNode,
 }) => {
   return (
     <div>
       {headSection}
       {newProducts}
+      {recommendateProducts}
     </div>
   );
 };

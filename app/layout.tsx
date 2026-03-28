@@ -6,6 +6,7 @@ import { CartContextProvider } from "@/context/CartContext";
 import Header from "@/module/share/navbar/ui/Navbar";
 import { SessionProvider } from "next-auth/react";
 import { WishlistProvider } from "@/context/WishlistContext";
+import Footer from "@/module/share/footer/view/footerSection";
 
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <WishlistProvider>
               <Header />
               <SessionProvider>{children}</SessionProvider>
+              <Footer />
             </WishlistProvider>
           </CartContextProvider>
         </Suspense>
