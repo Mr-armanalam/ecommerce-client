@@ -1,6 +1,6 @@
 import { Schema, model, models, Document, Types } from "mongoose";
 
-interface Iorder extends Document {
+export interface Iorder extends Document {
   line_items: object;
   name: string;
   email: string;
