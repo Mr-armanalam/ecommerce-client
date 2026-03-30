@@ -1,30 +1,36 @@
 "use client";
 import React, { useContext } from "react";
 import { CartIcon } from "../../account/component/icons";
-import { CartContext } from "@/context/CartContext";
-import { isAddedtoCart } from "@/lib/utils";
 
 interface IcartButton {
   productId: string;
   btnType: string;
   fill?: string;
   icon?: boolean;
+  isAdded?: boolean; // New prop to indicate if the product is already in the cart
+  onClick: (productId: string) => void; // Explicitly define onClick prop
 }
 
-const CartButton = ({ btnType, productId, icon = true, fill }: IcartButton) => {
-  const { addProduct } = useContext(CartContext);
+const CartButton = ({
+  btnType,
+  productId,
+  icon = true,
+  fill,
+  isAdded = false,
+  onClick,
+}: IcartButton) => {
   return (
     <button
-      onClick={() => addProduct(productId)}
-      className={`btn-primary1 ${btnType} ${isAddedtoCart({ id: productId }) && "cursor-not-allowed opacity-30"} px-5 py-1.5 disabled:cursor-default`}
-      disabled={isAddedtoCart({ id: productId })}
+      onClick={() => onClick(productId)}
+      className={`btn-primary1 ${btnType} ${isAdded && "cursor-not-allowed opacity-30"} px-5 py-1.5 disabled:cursor-default`}
+      disabled={isAdded}
     >
       {icon && (
         <>
           <CartIcon className={fill} /> &nbsp;
         </>
       )}
-      Add to cart
+      {isAdded ? "Added" : "Add to cart"}
     </button>
   );
 };

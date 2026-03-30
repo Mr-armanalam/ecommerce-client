@@ -3,10 +3,10 @@
 "use client";
 import AddressShower from "@/module/account/component/AddressShower";
 import { lora } from "@/module/share/navbar/ui/Navbar";
-import { CartContext } from "@/context/CartContext";
 import { getCartProduct } from "@/module/products/server/products.action";
 import { useSession } from "next-auth/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useCart } from "@/context/CartContext";
 
 interface Product {
   _id: string;
@@ -19,9 +19,7 @@ interface Product {
 }
 
 const Cart = () => {
-  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(
-    CartContext,
-  ) ?? { cartProducts: [] };
+  const { cartItems, addProduct, removeProduct, clearCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,15 +30,15 @@ const Cart = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (cartProducts.length > 0) {
+    if (cartItems.length > 0) {
       (async function () {
-        const { product } = await getCartProduct(cartProducts);
+        const { product } = await getCartProduct(cartItems);
         setProducts(product);
       })();
     } else {
       setProducts([]);
     }
-  }, [cartProducts]);
+  }, [cartItems]);
 
   useEffect(() => {
     if (
@@ -49,7 +47,8 @@ const Cart = () => {
     ) {
       clearCart();
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // This should only run once on mount
 
   const moreOfThisProduct = (productId: string) => {
     if (addProduct) {
@@ -67,7 +66,7 @@ const Cart = () => {
     event.preventDefault();
 
     const formData = new FormData(event.target as HTMLFormElement);
-    formData.append("cartProducts", JSON.stringify(cartProducts));
+    formData.append("cartProducts", JSON.stringify(cartItems));
     if (session) formData.append("clientuser", session.user.id);
 
     await fetch("/api/checkout", {
@@ -82,7 +81,7 @@ const Cart = () => {
   };
 
   let total = 0;
-  for (const productId of cartProducts) {
+  for (const productId of cartItems) {
     const price = products.find((p) => p._id === productId)?.price;
 
     if (price) {
@@ -110,7 +109,7 @@ const Cart = () => {
     <div className="nav-center mt-10 grid grid-cols-3 max-md:mb-2 max-md:grid-cols-1 max-md:gap-y-2 md:gap-10">
       <div className="col-span-2 h-fit rounded-md bg-white p-8">
         <h2 className={`font-bold ${lora.className}`}>Cart</h2>
-        {!cartProducts?.length ? (
+        {!cartItems?.length ? (
           <div className={lora.className}>Your cart is empty</div>
         ) : (
           <>
@@ -150,7 +149,7 @@ const Cart = () => {
                         -
                       </button>
                       <span className="font-semibold text-gray-500">
-                        {cartProducts.filter((id) => id === product._id).length}
+                        {cartItems.filter((id) => id === product._id).length}
                       </span>
                       <button
                         onClick={() => moreOfThisProduct(product?._id)}
@@ -163,7 +162,7 @@ const Cart = () => {
                     <td>
                       {" "}
                       $
-                      {cartProducts.filter((id) => id === product._id).length *
+                      {cartItems.filter((id) => id === product._id).length *
                         product.price || "-"}
                     </td>
                   </tr>
@@ -178,7 +177,7 @@ const Cart = () => {
           </>
         )}
       </div>
-      {!!cartProducts?.length && (
+      {!!cartItems?.length && (
         <div>
           <form
             onSubmit={goToPayment}
@@ -241,7 +240,7 @@ const Cart = () => {
               name="country"
               onChange={(e) => setCountry(e.target.value)}
             />
-            {/* <input type="hidden" name="products" value={cartProducts.join(',')} /> */}
+            {/* <input type="hidden" name="products" value={cartItems.join(',')} /> */}
             <button
               type="submit"
               className="btn-primary1 btn_block mt-6 rounded-md bg-[#222] py-2 text-white"

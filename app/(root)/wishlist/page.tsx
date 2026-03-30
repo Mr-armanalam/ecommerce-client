@@ -16,18 +16,19 @@ interface props {
 }
 
 const Wishlist = () => {
-  const { wishlistProduct, clearWishlist } = useWishlist();
+  const { wishlistItems, clearWishlist } = useWishlist();
   const [products, setProducts] = useState<props[]>([]);
 
-  async function handleWishlist(product: string[]) {
-    const WishProducts = await getWishlistProducts(product);
-    setProducts(WishProducts);
-  }
   useEffect(() => {
-    if (wishlistProduct?.length > 0) {
-      handleWishlist(wishlistProduct);
+    if (wishlistItems?.length > 0) {
+      (async function () {
+        const wishProducts = await getWishlistProducts(wishlistItems);
+        setProducts(wishProducts);
+      })();
+    } else {
+      setProducts([]);
     }
-  }, [wishlistProduct]);
+  }, [wishlistItems]);
 
   return (
     <>

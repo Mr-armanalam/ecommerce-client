@@ -1,15 +1,15 @@
 "use client";
 import { useContext, useState, useRef } from "react";
 import Link from "next/link";
-import { CartContext } from "@/context/CartContext";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ShoppingBag, Heart, User, Menu, X, UserCircle } from "lucide-react";
 import { Lora } from "next/font/google";
 import ProductSearch from "../components/ProductSearch";
-import { WishlistContext } from "@/context/WishlistContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Image from "next/image";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 gsap.registerPlugin(useGSAP);
 
@@ -19,8 +19,8 @@ export const lora = Lora({
 });
 
 export default function Navbar() {
-  const { cartProducts } = useContext(CartContext);
-  const { wishlistProduct } = useContext(WishlistContext);
+  const { cartItems } = useCart();
+  const { wishlistItems } = useWishlist();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const mobileMenuRef = useRef(null);
   const isMobile = useIsMobile();
@@ -77,9 +77,9 @@ export default function Navbar() {
               className="relative max-sm:hidden text-gray-600 hover:scale-110 transition-colors hover:text-black"
             >
               <Heart size={20} />{" "}
-              {wishlistProduct?.length > 0 && (
+              {wishlistItems?.length > 0 && (
                 <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white">
-                  {wishlistProduct.length}
+                  {wishlistItems.length}
                 </span>
               )}
             </Link>
@@ -88,9 +88,9 @@ export default function Navbar() {
               className="relative max-sm:hidden text-gray-600 hover:scale-110 transition-colors hover:text-black"
             >
               <ShoppingBag size={20} />
-              {cartProducts?.length > 0 && (
+              {cartItems?.length > 0 && (
                 <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white">
-                  {cartProducts.length}
+                  {cartItems.length}
                 </span>
               )}
             </Link>
@@ -148,7 +148,7 @@ export default function Navbar() {
               <span className="text-xl font-medium text-white">Your Cart</span>
               <div className="flex items-center gap-2 rounded-full bg-blue-600 px-4 py-1 text-sm">
                 <ShoppingBag size={16} />
-                {cartProducts?.length || 0}
+                {cartItems?.length || 0}
               </div>
             </Link>
           </nav>

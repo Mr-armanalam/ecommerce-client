@@ -2,11 +2,10 @@
 import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
 import React, { ReactNode, Suspense } from "react";
-import { CartContextProvider } from "@/context/CartContext";
 import Header from "@/module/share/navbar/ui/Navbar";
 import { SessionProvider } from "next-auth/react";
-import { WishlistProvider } from "@/context/WishlistContext";
 import Footer from "@/module/share/footer/view/footerSection";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
@@ -23,17 +22,16 @@ const poppins = Poppins({
 });
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const queryClient = new QueryClient();
   return (
     <html lang="en">
       <body className={`${roboto.variable} ${poppins.variable} antialiased`}>
         <Suspense fallback={null}>
-          <CartContextProvider>
-            <WishlistProvider>
-              <Header />
-              <SessionProvider>{children}</SessionProvider>
-              <Footer />
-            </WishlistProvider>
-          </CartContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <Header />
+            <SessionProvider>{children}</SessionProvider>
+            <Footer />
+          </QueryClientProvider>
         </Suspense>
       </body>
     </html>

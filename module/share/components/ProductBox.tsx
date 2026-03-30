@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import CartButton from "./CartButton";
 import { WishlistIcon } from "../../account/component/icons";
 import { useWishlist } from "@/context/WishlistContext";
+import { useCart } from "@/context/CartContext";
 
 interface props {
   _id: string;
@@ -19,19 +20,14 @@ const ProductBox = ({ _id, title, price, images }: props) => {
   const url = `/products/${_id}`;
 
   const [isHover, setIsHover] = useState(false);
-  const { addToWishlist, wishlistProduct } = useWishlist();
-  const [iswishlist, setIsWishlist] = useState(false);
+  const { wishlistItems, toggleWishlist } = useWishlist(); // Use the new react-query hook
+  const { cartItems, addProduct } = useCart(); // Assuming you'll create a similar useCart hook
 
-  useEffect(() => {
-    if (wishlistProduct.length > 0) {
-      const found = wishlistProduct.find((product) => product === _id);
-      if (found) {
-        setIsWishlist(true);
-      } else {
-        setIsWishlist(false);
-      }
-    }
-  }, [wishlistProduct]);
+  const isAddedToWishlist = wishlistItems.includes(_id);
+  const isAddedToCart = cartItems.includes(_id);
+
+  // You might want to add loading/error states to your UI based on isWishlistLoading, isCartLoading etc.
+  // For brevity, they are omitted in the UI logic below.
 
   return (
     <div className="relative">
@@ -41,11 +37,11 @@ const ProductBox = ({ _id, title, price, images }: props) => {
         onMouseLeave={() => setIsHover(false)}
       >
         <div
-          className={`absolute right-2 top-2 z-10 cursor-pointer text-gray-500 ${isHover || iswishlist ? "block" : "hidden"}`}
-          onClick={() => addToWishlist(_id)}
+          className={`absolute right-2 top-2 z-10 cursor-pointer text-gray-500 ${isHover || isAddedToWishlist ? "block" : "hidden"}`}
+          onClick={() => toggleWishlist(_id)}
         >
           <WishlistIcon
-            className={`size-5 active:fill-black ${iswishlist && "fill-gray-700"}`}
+            className={`size-5 active:fill-black ${isAddedToWishlist && "fill-gray-700"}`}
           />
         </div>
 
@@ -68,6 +64,8 @@ const ProductBox = ({ _id, title, price, images }: props) => {
             icon={false}
             productId={_id}
             btnType="btn_primary_Outline rounded-md"
+            isAdded={isAddedToCart}
+            onClick={addProduct}
           />
         </div>
       </div>
