@@ -1,21 +1,38 @@
+"use client";
+
 import CartButton from "@/module/share/components/CartButton";
 import { ProductPropertes } from "@/module/products/section/ProductComponent";
 import ReviewShower from "@/module/products/ui/ReviewShower";
 import ProductImages from "@/module/products/section/ProductImages";
 import { productDatails } from "@/module/products/server/productDetails.action";
 import { StarIcon } from "lucide-react";
-import { Metadata } from "next";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useCart } from "@/context/CartContext";
+import PageLoading from "@/module/share/components/Page_Loading";
 
-export const metadata: Metadata = {
-  title: "QuirkCart | Products-Details",
-  description: "Products Details",
-};
 
-type Params = Promise<{ id: string }>;
-const ProductDetails = async (props: { params: Params }) => {
-  const params = await props.params;
-  const product = await productDatails(params.id);
+interface Product {
+  _id: string;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+  rating: number;
+  properties: any;
+}
+
+type Params = { id: string };
+const ProductDetails = ({ params }: { params: Params }) => {
+  const [product, setProduct] = useState<Product | null>(null);
+  const { cartItems, addProduct } = useCart();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const p = await productDatails(params.id);
+      setProduct(p);
+    };
+    fetchProduct();
+  }, [params.id]);
 
   const displayStarRating = (averageRating: number) => {
     const fullStars = Math.floor(averageRating);
@@ -23,6 +40,7 @@ const ProductDetails = async (props: { params: Params }) => {
   };
 
   if (product) {
+    const isAddedToCart = cartItems.includes(product._id);
     return (
       <div className="nav-center">
         <div className="my-10 grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10">
@@ -54,6 +72,8 @@ const ProductDetails = async (props: { params: Params }) => {
             <CartButton
               productId={product._id}
               btnType={"btn_primary_noOutline mt-5 ml-1 "}
+              isAdded={isAddedToCart}
+              onClick={addProduct}
             />
           </div>
         </div>
@@ -61,6 +81,9 @@ const ProductDetails = async (props: { params: Params }) => {
       </div>
     );
   }
+
+  // Render a loading state while the product data is being fetched.
+  return <PageLoading />;
 };
 
 export default ProductDetails;

@@ -1,11 +1,13 @@
+"use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ProductPropertes } from "../../products/section/ProductComponent";
 import CartButton from "../../share/components/CartButton";
 import { WishlistIcon } from "../../account/component/icons";
 import { useWishlist } from "@/context/WishlistContext";
 import { Iproduct } from "@/db/model/product";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 interface props extends Iproduct {
   _id: string | any;
@@ -19,28 +21,22 @@ const CategoriesResult = ({
   price,
   images,
 }: props) => {
-  const { addToWishlist, wishlistProduct } = useWishlist();
-  const [iswishlist, setIsWishlist] = useState<boolean>(false);
+  const { wishlistItems, toggleWishlist } = useWishlist();
+  const { cartItems, addProduct } = useCart();
 
-  useEffect(() => {
-    if (wishlistProduct.length > 0) {
-      const found = wishlistProduct.find((product) => product === _id);
-      if (found) {
-        setIsWishlist(true);
-      } else {
-        setIsWishlist(false);
-      }
-    }
-  }, [wishlistProduct, _id]);
+  const isAddedToWishlist = wishlistItems.includes(_id);
+  const isAddedToCart = cartItems.includes(_id);
 
   return (
     <div className="mt-10 grid grid-cols-5 max-sm:grid-cols-1 md:gap-5 lg:gap-10">
       <div className="center relative col-span-2 rounded-md bg-white p-10">
         <div
           className={`absolute right-2 top-2 z-10 cursor-pointer text-gray-500 `}
-          onClick={() => addToWishlist(_id)}
+          onClick={() => toggleWishlist(_id)}
         >
-          <WishlistIcon className={`size-5 ${iswishlist && "fill-gray-700"}`} />
+          <WishlistIcon
+            className={`size-5 ${isAddedToWishlist && "fill-gray-700"}`}
+          />
         </div>
         <Image src={images[0]} alt="product" width={200} height={200} />
       </div>
@@ -55,7 +51,12 @@ const CategoriesResult = ({
           <p className="mr-4 rounded-md border-2 border-gray-400 px-8 py-0.5 text-2xl">
             ${price}
           </p>
-          <CartButton productId={_id} btnType={"btn_primary_noOutline"} />
+          <CartButton
+            productId={_id}
+            btnType={"btn_primary_noOutline"}
+            isAdded={isAddedToCart}
+            onClick={addProduct}
+          />
         </div>
       </div>
     </div>
